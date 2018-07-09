@@ -1,21 +1,31 @@
 .row
   .col-md-12
     .form-group
-      input.form-control.searchBox onKeyUp="typewatch('cb(3)', 1000);"
+      input.form-control.searchBox onKeyUp="typewatch('sendAnalytics(3)', 1000);"
+    .alert.alert-success role='alert' style="display:none"
+      | Analytics created
 
 javascript:
-  function cb(obj){
+  function sendAnalytics(obj){
+    var text = $('.searchBox').val();
+
+    if (text.length === 0) return;
+
     $.ajax({
       url: 'analytics',
       method: 'POST',
-      data: { text: $('.searchBox').val() }
-    })
+      data: { text: text }
+    });
+
+    $alert = $('.alert');
+    $alert.html('<strong>Analytics created:</strong>' + ' ' + text);
+    $alert.show().delay(1000).fadeOut();
   }
 
   var typewatch = function(){
     var timer = 0;
-      return function(callback, ms){
-          clearTimeout (timer);
-          timer = setTimeout(callback, ms);
-      };
+    return function(callback, ms){
+      clearTimeout (timer);
+      timer = setTimeout(callback, ms);
+    };
   }();
