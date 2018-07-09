@@ -1,0 +1,21 @@
+.row
+  .col-md-12
+    .form-group
+      input.form-control.searchBox onKeyUp="typewatch('cb(3)', 1000);"
+
+javascript:
+  function cb(obj){
+    $.ajax({
+      url: 'analytics',
+      method: 'POST',
+      data: { text: $('.searchBox').val() }
+    })
+  }
+
+  var typewatch = function(){
+    var timer = 0;
+      return function(callback, ms){
+          clearTimeout (timer);
+          timer = setTimeout(callback, ms);
+      };
+  }();

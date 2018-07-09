@@ -1,0 +1,26 @@
+- if @analytics.any?
+  table.table.table-middled#analyticsTable
+    thead
+      tr
+        th Request
+        th Count
+    tbody
+      - @analytics.each do |request, count|
+        tr
+          td = request
+          td = count
+
+  = link_to 'Delete analytics', analytics_path, method: :delete, remote: true, class: 'btn btn-danger', data: { confirm: 'Are you sure?' }, id: 'deleteAnalytics'
+
+- else
+  center
+    em.text-muted
+      | No data
+
+javascript:
+  $('#deleteAnalytics').on('ajax:success', function(event, data, status, xhr) {
+    $('#analyticsTable').fadeOut('slow', function() {
+      $(this).remove();
+    })
+    $('#bodyContainer').html('<center><em class="text-muted">No data</em></center>')
+  });

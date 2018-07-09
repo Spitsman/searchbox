@@ -1,0 +1,21 @@
+doctype html
+
+html
+  head
+    title Search Box
+
+    = csrf_meta_tags
+    = stylesheet_link_tag 'application', media: :all
+    = csrf_meta_tags
+    = javascript_include_tag 'application'
+  body
+    .navbar.navbar-default.navbar-static-top
+        .container
+          .navbar-header
+            = link_to 'Search Box', root_path, class: "navbar-brand"
+            = link_to 'Analytics', analytics_path, class: "navbar-brand"
+
+    .container#bodyContainer
+      = yield
+
+    = content_for :assets
